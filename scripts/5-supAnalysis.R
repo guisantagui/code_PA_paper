@@ -33,6 +33,20 @@ dataDir <- paste0(rootDir, "data/")
 outDir <- paste0(rootDir, "results/")
 plotDir <- paste0(rootDir, "plots/")
 
+# Create directories if necessary
+if(!dir.exists(plotDir)){
+        dir.create(plotDir)
+}
+if(!dir.exists(outDir)){
+        dir.create(outDir)
+}
+
+####################################################################################################
+#                                                                                                  #
+# Load the data.                                                                                   #
+#                                                                                                  #
+####################################################################################################
+
 # Dictionary of metabolite names between different metabolite sets
 dictionary <- read.csv(file = paste0(outDir, "dictionary_solvedPut.csv"), 
                        row.names = 1, 

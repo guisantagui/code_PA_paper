@@ -26,6 +26,14 @@ dataDir <- paste0(rootDir, "data/")
 outDir <- paste0(rootDir, "results/")
 plotDir <- paste0(rootDir, "plots/")
 
+# Create directories if necessary
+if(!dir.exists(plotDir)){
+        dir.create(plotDir)
+}
+if(!dir.exists(outDir)){
+        dir.create(outDir)
+}
+
 ####################################################################################################
 #                                                                                                  #
 # Load the data.                                                                                   #
