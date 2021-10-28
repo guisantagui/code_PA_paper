@@ -273,3 +273,20 @@ pcBiplot <- function(PC, x="PC1", y="PC2", varPlotFilt = NULL){
 
 pcBiplot(mets_ccmn_med_pca, varPlotFilt = topCont_ccmn_med_PC1_PC2)
 ggsave(filename = paste0(plotDir, "figS6_B.pdf"), height = 5, width = 7)
+
+
+# Write a .tsv file of the ccmn normalized metabolites with putative compounds removed 
+# and final names (Kyu Rhee's) in it for further analysis. 
+####################################################################################################
+
+mets_ccmn_noPut <- mets_ccmn[, -grep("_?", colnames(mets_ccmn), fixed = T)]
+
+
+colnames(mets_ccmn_noPut) <- dictionary$KyuRheeNames[match(colnames(mets_ccmn_noPut), 
+                                                           dictionary$Consensus)]
+
+write.table(format(mets_ccmn_noPut, digits = 22), 
+            file = paste0(outDir, "mets_ccmn_noPut.tsv"), 
+            quote = F, 
+            row.names = T, 
+            sep = "\t")
