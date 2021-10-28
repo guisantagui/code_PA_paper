@@ -73,8 +73,15 @@ mwRhamn_pVal <- apply(mets_ccmn[, colnames(mets_ccmn) != "rhamn"],
 # Adjust p-values with Benjamini-Hochberg method
 mwRhamn_pAdj <- p.adjust(mwRhamn_pVal, method = "BH")
 
-# Filter significative metabolites, with a significance value of 0.05
+# Filter significative metabolites, with a significance value of 0.05 and write results
 mwRhamn_pAdj_sign <- mwRhamn_pAdj[mwRhamn_pAdj < 0.05]
+
+mwRhamn_result <- data.frame(metabolite = names(mwRhamn_pAdj_sign),
+                             pVal_adj =mwRhamn_pAdj_sign)
+
+write.csv(mwRhamn_result, 
+          file = paste0(outDir, "mwRhamn_result.csv"),
+          row.names = F)
 
 ####################################################################################################
 #                                                                                                  #
@@ -95,7 +102,8 @@ graph <- buildGraphFromKEGGREST(
                         "01200", 
                         "01210", 
                         #"01212", 
-                        "01230")
+                        "01230",
+                        "02010")
 )
 
 # Write KEGG knowledge model based on the graph
