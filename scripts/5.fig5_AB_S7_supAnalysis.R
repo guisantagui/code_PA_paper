@@ -32,7 +32,9 @@ rootDir <- "C:/Users/Guillem/Documents/PhD/comput/wrkng_dirs_clean/PA_paper_scri
 dataDir <- paste0(rootDir, "data/")
 outDir <- paste0(rootDir, "results/")
 plotDir <- paste0(rootDir, "plots/")
-
+fig5Dir <- paste0(plotDir, "fig5/")
+figS7Dir <- paste0(plotDir, "figS7/")
+oplsdaDir <- paste0(plotDir, "OPLS-DA/")
 # Create directories if necessary
 if(!dir.exists(plotDir)){
         dir.create(plotDir)
@@ -40,7 +42,15 @@ if(!dir.exists(plotDir)){
 if(!dir.exists(outDir)){
         dir.create(outDir)
 }
-
+if(!dir.exists(fig5Dir)){
+        dir.create(fig5Dir)
+}
+if(!dir.exists(figS7Dir)){
+        dir.create(figS7Dir)
+}
+if(!dir.exists(oplsdaDir)){
+        dir.create(oplsdaDir)
+}
 ####################################################################################################
 #                                                                                                  #
 # Load the data.                                                                                   #
@@ -93,7 +103,7 @@ mets_ccmn$rhamn <- as.factor(rhamnMat$rhamn2cats[match(gsub("\\_.*",
 
 # Run OPLS-DA with 2000 label permutations for obtaining the p-value (significance of model).
 # Save the output image that ropls produces
-pdf(file = paste0(plotDir, "OPLSDA_rhamn.pdf"), width = 10, height = 10)
+pdf(file = paste0(oplsdaDir, "OPLSDA_rhamn.pdf"), width = 10, height = 10)
 OPLSDA_rhamn <- opls(mets_ccmn[, colnames(mets_ccmn) != "rhamn"],
                      mets_ccmn$rhamn, 
                      predI = 1, 
@@ -165,7 +175,7 @@ fig5A_plot <- ggplot(oplsdaScores_mean, aes(x=t1, y=o1, color=rhamn, label = str
 
 fig5A_plot
 
-ggsave(filename = paste0(plotDir, "fig5_A.pdf"),
+ggsave(filename = paste0(fig5Dir, "fig5_A.pdf"),
        height = 5, width = 7)
 
 # Do barplots of metabolite loadings for predictive component, with the pathways where they
@@ -262,7 +272,7 @@ figS7_plot <- ggplot(data = loadsPaths,
 
 figS7_plot
 
-ggsave(filename = paste0(plotDir, "figS7.pdf"), height = 20, width = 12)
+ggsave(filename = paste0(figS7Dir, "figS7.pdf"), height = 20, width = 12)
 
 
 # Create filtered dataset to focus just on carbon (TCA cycle and Pentose Phosphate 
@@ -386,4 +396,4 @@ fig5B_plot <- ggplot(data = loadsPathsFilt,
 
 fig5B_plot
 
-ggsave(filename = paste0(plotDir, "fig5_B.pdf"), height = 10, width = 9)
+ggsave(filename = paste0(fig5Dir, "fig5_B.pdf"), height = 10, width = 9)

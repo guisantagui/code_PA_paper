@@ -27,6 +27,7 @@ rootDir <- "C:/Users/Guillem/Documents/PhD/comput/wrkng_dirs_clean/PA_paper_scri
 dataDir <- paste0(rootDir, "data/")
 outDir <- paste0(rootDir, "results/")
 plotDir <- paste0(rootDir, "plots/")
+fellaDir <- paste0(plotDir, "FELLA/")
 
 # Create directories if necessary
 if(!dir.exists(plotDir)){
@@ -35,7 +36,9 @@ if(!dir.exists(plotDir)){
 if(!dir.exists(outDir)){
         dir.create(outDir)
 }
-
+if(!dir.exists(fellaDir)){
+        dir.create(fellaDir)
+}
 ####################################################################################################
 #                                                                                                  #
 # Load the data.                                                                                   #
@@ -160,7 +163,7 @@ graph_res <- generateResultsGraph(
         nlimit = 350,
         data = fella.data)
 
-pdf(paste0(plotDir, "FELLA_graph_res.pdf"), width = 15, height = 15)
+pdf(paste0(fellaDir, "FELLA_graph_res.pdf"), width = 15, height = 15)
 plotGraph(
         graph_res
 )

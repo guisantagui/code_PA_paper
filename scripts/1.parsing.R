@@ -56,21 +56,21 @@ dictEnzyms <- read.csv(file = paste0(dataDir, "dictEnzymes.csv"),
 ####################################################################################################
 
 #Load Names
-sampleNames <- read_excel(paste0(dataDir, "curated_peaks/sampleName1.xlsx"))
+sampleNames <- read_excel(paste0(dataDir, "metData/sampleName1.xlsx"))
 colnames(sampleNames) <- paste(sampleNames[1, ], sampleNames[2, ], sep = '_')
 
 #Load data
-negativePeaks <- read_excel(paste0(dataDir, "curated_peaks/ClinicalNeg-2.xlsx"))
+negativePeaks <- read_excel(paste0(dataDir, "metData/ClinicalNeg-2.xlsx"))
 colnames(negativePeaks)[6:89] <- colnames(sampleNames)
 negativePeaks$negativePeaks = 1
 negativePeaks$mode <- "negative"
 
-positivePeaks1 <- read_excel(paste0(dataDir, "curated_peaks/ClinicalPos-4.1.xlsx"))
+positivePeaks1 <- read_excel(paste0(dataDir, "metData/ClinicalPos-4.1.xlsx"))
 colnames(positivePeaks1)[6:89] <- colnames(sampleNames)
 positivePeaks1$positivePeaks1 = 1
 positivePeaks1$mode <- "positive1"
 
-positivePeaks2 <- read_excel(paste0(dataDir, "curated_peaks/ClinicalPos-4.2.xlsx"))
+positivePeaks2 <- read_excel(paste0(dataDir, "metData/ClinicalPos-4.2.xlsx"))
 colnames(positivePeaks2)[6:89] <- colnames(sampleNames)
 positivePeaks2$positivePeaks2 = 1
 positivePeaks2$mode <- "positive2"
@@ -192,7 +192,7 @@ write.csv(dictionary, file = paste0(outDir, "dictionary_solvedPut.csv"))
 # We're keeping them because we use them in the normalization, and remove them afterwards. Just add
 # the ones labeled as "Added" in the metabolite dictionary. 
 ####################################################################################################
-mets <-read_xlsx(paste0(dataDir, "metaboliteTable.xlsx"))
+mets <-read_xlsx(paste0(dataDir, "metData/metaboliteTable.xlsx"))
 
 strain_names <- unique(mets$mutant)
 sampleNames <- mets$sample %>% gsub("Negative|Positive", "", .) %>% gsub("day1", "_", .) %>% unique()

@@ -28,6 +28,8 @@ rootDir <- "C:/Users/Guillem/Documents/PhD/comput/wrkng_dirs_clean/PA_paper_scri
 dataDir <- paste0(rootDir, "data/")
 outDir <- paste0(rootDir, "results/")
 plotDir <- paste0(rootDir, "plots/")
+figDir <- paste0(plotDir, "figS5/")
+preProcDir <- paste0(plotDir, "preProc/")
 
 # Create directories if necessary
 if(!dir.exists(plotDir)){
@@ -35,6 +37,12 @@ if(!dir.exists(plotDir)){
 }
 if(!dir.exists(outDir)){
         dir.create(outDir)
+}
+if(!dir.exists(figDir)){
+        dir.create(figDir)
+}
+if(!dir.exists(preProcDir)){
+        dir.create(preProcDir)
 }
 
 ####################################################################################################
@@ -192,7 +200,7 @@ ggplot(data = metQual, aes(x = missingProp, y = rangePeaks)) + geom_point() +
         ylab("Peak range") + 
         xlab("Missing Value Proportion") + 
         theme_minimal()
-ggsave(filename = paste0(plotDir, "figS5_B.1.pdf"), 
+ggsave(filename = paste0(figDir, "figS5_B.1.pdf"), 
        width = 6, 
        height = 6)
 
@@ -244,7 +252,7 @@ ggplot(data = metQualPostImp, aes(x = missingProp, y = rangePeaks)) + geom_point
         ylab("Peak range") + 
         xlab("Missing Value Proportion") + 
         theme_minimal()
-ggsave(filename = paste0(plotDir, "figS5_B.2.pdf"), width = 6, height = 6)
+ggsave(filename = paste0(figDir, "figS5_B.2.pdf"), width = 6, height = 6)
 
 # Remove all compounds that after imputation still have any NAs
 ####################################################################################################
@@ -359,7 +367,7 @@ metBarplot <- ggplot(data = logdatatable, mapping = aes(x = reorder(metabolite,
 
 metBarplot
 
-ggsave(paste0(plotDir, "figS5_A.pdf"), width = 6.5, height = 10.2)  
+ggsave(paste0(figDir, "figS5_A.pdf"), width = 6.5, height = 10.2)  
 
 # Prepare 
 #missingMet <-  MissingValues(logdataMet$featuredata, sampledataMet,metabolitedataMet,
@@ -506,7 +514,7 @@ ggplot(data = normRepDF_4Plot, mapping = aes(x = sd, y = dd)) +
                 y = "Mean distance between strains",
                 x = "Mean distance between replicates"
         )
-ggsave(paste0(plotDir, "normMet_avDists.pdf"))
+ggsave(paste0(preProcDir, "normMet_avDists.pdf"))
 
 # Plot silhouette value boxplots for each normalization method
 ####################################################################################################
@@ -536,7 +544,7 @@ ggplot(data = silDF, mapping = aes(x = reorder(method, silh, FUN=median), y = si
                 y= "Silhouete",
                 x= "Method"
         )
-ggsave(paste0(plotDir, "normMet_silh.pdf")) 
+ggsave(paste0(preProcDir, "normMet_silh.pdf")) 
 
 
 # Obtain Within-Group and across-Group Relative Log Abundance (RLA) plots for each normalization 
@@ -548,14 +556,14 @@ for(i in seq_along(normOutsList)){
                  groupdata = logdataMet$sampledata$Group, type = "wg",
                  interactiveplot = F, interactiveonly = F, 
                  cols = rainbow(28), minoutlier = 0.5, las = 3,
-                 plotname = sprintf("%sRLA_WG_%s", plotDir, normMeth),
+                 plotname = sprintf("%sRLA_WG_%s", preProcDir, normMeth),
                  saveplot = T, savetype = "pdf",
                  ylim = c(-2, 2))
         RlaPlots(featuredata = normOutsList[[i]]$featuredata, 
                  groupdata = logdataMet$sampledata$Group, type = "ag",
                  interactiveplot = F, interactiveonly = F, 
                  cols = rainbow(28), minoutlier = 0.5, las = 3,
-                 plotname = sprintf("%sRLA_AG_%s", plotDir, normMeth),
+                 plotname = sprintf("%sRLA_AG_%s", preProcDir, normMeth),
                  saveplot = T, savetype = "pdf",
                  ylim = c(-2, 2))
 }

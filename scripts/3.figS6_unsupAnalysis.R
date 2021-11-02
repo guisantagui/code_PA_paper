@@ -25,6 +25,7 @@ rootDir <- "C:/Users/Guillem/Documents/PhD/comput/wrkng_dirs_clean/PA_paper_scri
 dataDir <- paste0(rootDir, "data/")
 outDir <- paste0(rootDir, "results/")
 plotDir <- paste0(rootDir, "plots/")
+figDir <- paste0(plotDir, "figS6/")
 
 # Create directories if necessary
 if(!dir.exists(plotDir)){
@@ -32,6 +33,9 @@ if(!dir.exists(plotDir)){
 }
 if(!dir.exists(outDir)){
         dir.create(outDir)
+}
+if(!dir.exists(figDir)){
+        dir.create(figDir)
 }
 
 ####################################################################################################
@@ -116,7 +120,7 @@ mets_ccmn_scaled_noPut <- mets_ccmn_scaled[, -grep("_?",
 colnames(mets_ccmn_scaled_noPut) <- dictionary$KyuRheeNames[match(colnames(mets_ccmn_scaled_noPut), 
                                                                   dictionary$Consensus)]
 
-pdf(paste0(plotDir, "figS6_A.pdf"), width = 13, height = 11, pointsize = 2.5)
+pdf(paste0(figDir, "figS6_A.pdf"), width = 13, height = 11, pointsize = 2.5)
 heatmap.2(as.matrix(t(mets_ccmn_scaled_noPut)), 
           distfun = function(x) dist(x, method = "euclidean"), 
           density.info = "none", 
@@ -280,7 +284,7 @@ pcBiplot <- function(PC, x="PC1", y="PC2", varPlotFilt = NULL){
 
 
 pcBiplot(mets_ccmn_med_pca, varPlotFilt = topCont_ccmn_med_PC1_PC2)
-ggsave(filename = paste0(plotDir, "figS6_B.pdf"), height = 5, width = 7)
+ggsave(filename = paste0(figDir, "figS6_B.pdf"), height = 5, width = 7)
 
 
 # Write a .tsv file of the ccmn normalized metabolites with putative compounds removed 
